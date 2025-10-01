@@ -1,5 +1,22 @@
+import csv
 def carica_da_file(file_path):
     """Carica i libri dal file"""
+    try:
+        f = open(file_path,"r")
+    except FileNotFoundError:
+        return False
+    sezioni = {1 : [], 2 : [], 3 : [], 4 : [], 5 : []}
+    class Book:
+        def __init__(self, t, a, ap, n):
+            self.titolo = t
+            self.autore = a
+            self.annoPubblicazione = ap
+            self.n_pagine = n
+
+    for riga in csv.reader(f):
+        if len(riga) == 5: # escludo la prima riga
+            sezioni[int(riga[4])].append(Book(riga[0], riga[1], riga[2], riga[3]))
+
     # TODO
 
 
